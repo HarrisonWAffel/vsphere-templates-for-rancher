@@ -60,10 +60,10 @@ vm_network_card          = "vmxnet3"
 // to the current vSphere environment,
 // and should changed when ISOs are uploaded
 // or removed
-iso_path           = "ISOs/Windows/"
-iso_file           = "windows2019.iso"
+iso_path           = "ISOs"
+iso_file           = "windows-2019-dec.iso"
 iso_checksum_type  = "sha256"
-iso_checksum_value = "6dae072e7f78f4ccab74a45341de0d6e2d45c39be25f1f5920a2ab4f51d7bcbb"
+iso_checksum_value = "903545e72f9c640632816b57a05633da5b506548"
 
 // Boot Settings
 vm_boot_order       = "disk,cdrom"
