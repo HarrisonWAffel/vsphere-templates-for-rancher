@@ -79,5 +79,5 @@ communicator_port    = 5985
 communicator_timeout = "12h"
 
 // Provisioner Settings
-preparationScripts = ["scripts/windows/windows-prepare.ps1", "scripts/windows/windows-setup-cloudbase-unattend.ps1"]
+preparationScripts = ["scripts/windows/windows-prepare.ps1"]
 finishScripts = ["scripts/windows/windows-finish.ps1"]
