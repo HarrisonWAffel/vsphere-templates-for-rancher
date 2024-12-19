@@ -11,8 +11,17 @@ vsphere_password            = "R@in!$aG00dThing."
 vsphere_insecure_connection = false
 
 // vSphere Settings
+
+// Datacenter name
 vsphere_datacenter = "sfo-w01-dc01"
+
+// Datacenter cluster. Typically the Cluster name followed by IP address (e.g., Cluster/10.241.231.34)
 vsphere_cluster    = "sfo-w01-cl01"
+// Typically the name of the datastore followed by the specific disk (e.g. Cluster/Spinner-1)
 vsphere_datastore  = "sfo-w01-cl01-ds-vsan01"
+
+// Typically in the format of (network/NETWORK_NAME)
 vsphere_network    = "sfo-w01-seg-dhcp"
+
+// The vSphere folder where vms will be created during the templating process
 vsphere_folder     = "sfo-w01-fd-templates"
