@@ -217,6 +217,22 @@ menu_option_7() {
     exit 1
   fi
 
+  echo "Do you want to provide a custom name prefix for this template? This can be helpful for creating debug templates."
+  echo "By default all templates use the format of '[prefix-][OSType]-[Year]-[Edition]-v[Year].[Month]'"
+  echo "(e.g. windows-server-2022-standard-core-v24.12)"
+  echo "Continue? (y/n)"
+
+  read -r REPLY
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "Enter a custom name prefix for this template: "
+    read -r CUSTOM_NAME
+    if [[ -z $CUSTOM_NAME ]]; then
+        echo "Must provide a custom name"
+        exit 1
+    fi
+  fi
+
   ### Build all Windows Server 2022 Templates for VMware vSphere. ###
   echo "Building all Windows Server 2022 Templates for VMware vSphere..."
 
@@ -230,6 +246,7 @@ menu_option_7() {
       -var-file="$CONFIG_PATH/vsphere.pkrvars.hcl" \
       -var-file="$CONFIG_PATH/build.pkrvars.hcl" \
       -var-file="$CONFIG_PATH/common.pkrvars.hcl" \
+      -var="custom_template_prefix=$CUSTOM_NAME" \
       "$INPUT_PATH"
 
   ### All done. ###
@@ -246,6 +263,33 @@ menu_option_8() {
     exit 1
   fi
 
+  echo "Do you want to provide a custom name prefix for this template? This can be helpful for creating debug templates."
+  echo "By default all templates use the format of '[prefix-][OSType]-[Year]-[Edition]-v[Year].[Month]'"
+  echo "(e.g. windows-server-2022-standard-core-v24.12)"
+  echo "Continue? (y/n)"
+  read -r REPLY
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "Enter a custom name prefix for this template: "
+    read -r CUSTOM_NAME
+    if [[ -z $CUSTOM_NAME ]]; then
+        echo "Must provide a custom name"
+        exit 1
+    fi
+  fi
+
+
+  echo "Do you want to build both server Editions?"
+  echo " y: Yes"
+  echo " c: Only Core Edition"
+  echo " d: Only Desktop Edition"
+  echo "(y/c/d)"
+  ONLY=$(specific_windows_version)
+  if [[ $ONLY == "-1" ]]
+  then
+    echo "Invalid value when specifying server type"
+    exit 1
+  fi
   ### Build Microsoft Windows Server 2022 Standard Templates for VMware vSphere. ###
   echo "Building Microsoft Windows Server 2022 Standard Templates for VMware vSphere..."
 
@@ -256,10 +300,11 @@ menu_option_8() {
   ### Start the Build. ###
   echo "Starting the build...."
   packer build -force \
-      --only vsphere-iso.windows-server-standard-dexp,vsphere-iso.windows-server-standard-core \
+      --only "$ONLY" \
       -var-file="$CONFIG_PATH/vsphere.pkrvars.hcl" \
       -var-file="$CONFIG_PATH/build.pkrvars.hcl" \
       -var-file="$CONFIG_PATH/common.pkrvars.hcl" \
+      -var="custom_template_prefix=$CUSTOM_NAME" \
       "$INPUT_PATH"
 
   ### All done. ###
@@ -276,6 +321,34 @@ menu_option_9() {
     exit 1
   fi
 
+  echo "Do you want to provide a custom name prefix for this template? This can be helpful for creating debug templates."
+  echo "By default all templates use the format of '[prefix-][OSType]-[Year]-[Edition]-v[Year].[Month]'"
+  echo "(e.g. windows-server-2022-standard-core-v24.12)"
+  echo "Continue? (y/n)"
+  read -r REPLY
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "Enter a custom name prefix for this template: "
+    read -r CUSTOM_NAME
+    if [[ -z $CUSTOM_NAME ]]; then
+        echo "Must provide a custom name"
+        exit 1
+    fi
+  fi
+
+
+  echo "Do you want to build both server Editions?"
+  echo " y: Yes"
+  echo " c: Only Core Edition"
+  echo " d: Only Desktop Edition"
+  echo "(y/c/d)"
+  ONLY=$(specific_windows_version)
+  if [[ $ONLY == "-1" ]]
+  then
+    echo "Invalid value when specifying server type"
+    exit 1
+  fi
+
   ### Build Microsoft Windows Server 2022 Datacenter Templates for VMware vSphere. ###
   echo "Building Microsoft Windows Server 2022 Datacenter Templates for VMware vSphere..."
 
@@ -285,11 +358,12 @@ menu_option_9() {
 
   ### Start the Build. ###
   echo "Starting the build...."
-  packer build -force \
-      --only vsphere-iso.windows-server-datacenter-dexp,vsphere-iso.windows-server-datacenter-core \
+  echo packer build -force \
+      --only "$ONLY" \
       -var-file="$CONFIG_PATH/vsphere.pkrvars.hcl" \
       -var-file="$CONFIG_PATH/build.pkrvars.hcl" \
       -var-file="$CONFIG_PATH/common.pkrvars.hcl" \
+      -var="custom_template_prefix=$CUSTOM_NAME" \
       "$INPUT_PATH"
 
   ### All done. ###
@@ -306,6 +380,22 @@ menu_option_10() {
     exit 1
   fi
 
+  echo "Do you want to provide a custom name prefix for this template? This can be helpful for creating debug templates."
+  echo "By default all templates use the format of '[prefix-][OSType]-[Year]-[Edition]-v[Year].[Month]'"
+  echo "(e.g. windows-server-2022-standard-core-v24.12)"
+  echo "Continue? (y/n)"
+
+  read -r REPLY
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "Enter a custom name prefix for this template: "
+    read -r CUSTOM_NAME
+    if [[ -z $CUSTOM_NAME ]]; then
+        echo "Must provide a custom name"
+        exit 1
+    fi
+  fi
+
   ### Build all Windows Server 2019 Templates for VMware vSphere. ###
   echo "Building all Windows Server 2019 Templates for VMware vSphere..."
 
@@ -319,6 +409,7 @@ menu_option_10() {
       -var-file="$CONFIG_PATH/vsphere.pkrvars.hcl" \
       -var-file="$CONFIG_PATH/build.pkrvars.hcl" \
       -var-file="$CONFIG_PATH/common.pkrvars.hcl" \
+      -var="custom_template_prefix=$CUSTOM_NAME" \
       "$INPUT_PATH"
 
   ### All done. ###
@@ -335,6 +426,34 @@ menu_option_11() {
     exit 1
   fi
 
+  echo "Do you want to provide a custom name prefix for this template? This can be helpful for creating debug templates."
+  echo "By default all templates use the format of '[prefix-][OSType]-[Year]-[Edition]-v[Year].[Month]'"
+  echo "(e.g. windows-server-2022-standard-core-v24.12)"
+  echo "Continue? (y/n)"
+  read -r REPLY
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "Enter a custom name prefix for this template: "
+    read -r CUSTOM_NAME
+    if [[ -z $CUSTOM_NAME ]]; then
+        echo "Must provide a custom name"
+        exit 1
+    fi
+  fi
+
+
+  echo "Do you want to build both server Editions?"
+  echo " y: Yes"
+  echo " c: Only Core Edition"
+  echo " d: Only Desktop Edition"
+  echo "(y/c/d)"
+  ONLY=$(specific_windows_version)
+  if [[ $ONLY == "-1" ]]
+  then
+    echo "Invalid value when specifying server type"
+    exit 1
+  fi
+
   ### Build Microsoft Windows Server 2019 Standard Templates for VMware vSphere. ###
   echo "Building Microsoft Windows Server 2019 Standard Templates for VMware vSphere..."
 
@@ -345,10 +464,11 @@ menu_option_11() {
   ### Start the Build. ###
   echo "Starting the build...."
   packer build -force \
-      --only vsphere-iso.windows-server-standard-dexp,vsphere-iso.windows-server-standard-core \
+      --only "$ONLY" \
       -var-file="$CONFIG_PATH/vsphere.pkrvars.hcl" \
       -var-file="$CONFIG_PATH/build.pkrvars.hcl" \
       -var-file="$CONFIG_PATH/common.pkrvars.hcl" \
+      -var="custom_template_prefix=$CUSTOM_NAME" \
       "$INPUT_PATH"
 
   ### All done. ###
@@ -365,6 +485,33 @@ menu_option_12() {
     exit 1
   fi
 
+  echo "Do you want to provide a custom name prefix for this template? This can be helpful for creating debug templates."
+  echo "By default all templates use the format of '[prefix-][OSType]-[Year]-[Edition]-v[Year].[Month]'"
+  echo "(e.g. windows-server-2022-standard-core-v24.12)"
+  echo "Continue? (y/n)"
+  read -r REPLY
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "Enter a custom name prefix for this template: "
+    read -r CUSTOM_NAME
+    if [[ -z $CUSTOM_NAME ]]; then
+        echo "Must provide a custom name"
+        exit 1
+    fi
+  fi
+
+  echo "Do you want to build both server Editions?"
+  echo " y: Yes"
+  echo " c: Only Core Edition"
+  echo " d: Only Desktop Edition"
+  echo "(y/c/d)"
+  ONLY=$(specific_windows_version)
+  if [[ $ONLY == "-1" ]]
+  then
+    echo "Invalid value when specifying server type"
+    exit 1
+  fi
+
   ### Build Microsoft Windows Server 2019 Datacenter Templates for VMware vSphere. ###
   echo "Building Microsoft Windows Server 2019 Datacenter Templates for VMware vSphere..."
 
@@ -375,14 +522,40 @@ menu_option_12() {
   ### Start the Build. ###
   echo "Starting the build...."
   packer build -force \
-      --only vsphere-iso.windows-server-datacenter-dexp,vsphere-iso.windows-server-datacenter-core \
+      --only "$ONLY" \
       -var-file="$CONFIG_PATH/vsphere.pkrvars.hcl" \
       -var-file="$CONFIG_PATH/build.pkrvars.hcl" \
+      -var="custom_template_prefix=$CUSTOM_PREFIX" \
       -var-file="$CONFIG_PATH/common.pkrvars.hcl" \
       "$INPUT_PATH"
 
   ### All done. ###
   echo "Done."
+}
+
+specific_windows_version() {
+  read -r REPLY
+  if [[ ! $REPLY =~ ^[Cc]$ ]] && [[ ! $REPLY =~ ^[Dd]$ ]] && [[ ! $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "-1"
+  fi
+
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "vsphere-iso.windows-server-standard-dexp,vsphere-iso.windows-server-standard-core"
+  fi
+
+  if [[ $REPLY =~ ^[Cc]$ ]]
+  then
+    echo "vsphere-iso.windows-server-standard-core"
+  fi
+
+  if [[ $REPLY =~ ^[Dd]$ ]]
+  then
+    echo "vsphere-iso.windows-server-standard-dexp"
+  fi
+
+  echo ""
 }
 
 press_enter() {

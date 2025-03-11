@@ -31,6 +31,8 @@ locals {
   build_version = formatdate("YY.MM", timestamp())
   manifest_date = formatdate("YYYY-MM-DD hh:mm:ss", timestamp())
   manifest_path = "${path.cwd}/manifests/"
+  # Note the included '-' after the provided prefix value
+  custom_prefix = var.custom_template_prefix == "" ? "" : "${var.custom_template_prefix}-"
 }
 
 //  BLOCK: source
@@ -52,7 +54,7 @@ source "vsphere-iso" "windows-server-standard-core" {
 
   // Virtual Machine Settings
   guest_os_type        = var.vm_guest_os_type
-  vm_name              = "${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-${var.vm_guest_os_edition_standard}-${var.vm_guest_os_experience_core}-v${local.build_version}"
+  vm_name              = "${local.custom_prefix}${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-${var.vm_guest_os_edition_standard}-${var.vm_guest_os_experience_core}-v${local.build_version}"
   firmware             = var.vm_firmware
   CPUs                 = var.vm_cpu_sockets
   cpu_cores            = var.vm_cpu_cores
@@ -142,7 +144,7 @@ source "vsphere-iso" "windows-server-standard-dexp" {
 
   // Virtual Machine Settings
   guest_os_type        = var.vm_guest_os_type
-  vm_name              = "${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-${var.vm_guest_os_edition_standard}-${var.vm_guest_os_experience_desktop}-v${local.build_version}"
+  vm_name              = "${local.custom_prefix}${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-${var.vm_guest_os_edition_standard}-${var.vm_guest_os_experience_desktop}-v${local.build_version}"
   firmware             = var.vm_firmware
   CPUs                 = var.vm_cpu_sockets
   cpu_cores            = var.vm_cpu_cores
@@ -233,7 +235,7 @@ source "vsphere-iso" "windows-server-datacenter-core" {
 
   // Virtual Machine Settings
   guest_os_type        = var.vm_guest_os_type
-  vm_name              = "${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-${var.vm_guest_os_edition_datacenter}-${var.vm_guest_os_experience_core}-v${local.build_version}"
+  vm_name              = "${local.custom_prefix}${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-${var.vm_guest_os_edition_datacenter}-${var.vm_guest_os_experience_core}-v${local.build_version}"
   firmware             = var.vm_firmware
   CPUs                 = var.vm_cpu_sockets
   cpu_cores            = var.vm_cpu_cores
@@ -326,7 +328,7 @@ source "vsphere-iso" "windows-server-datacenter-dexp" {
 
   // Virtual Machine Settings
   guest_os_type        = var.vm_guest_os_type
-  vm_name              = "${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-${var.vm_guest_os_edition_datacenter}-${var.vm_guest_os_experience_desktop}-v${local.build_version}"
+  vm_name              = "${local.custom_prefix}${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-${var.vm_guest_os_edition_datacenter}-${var.vm_guest_os_experience_desktop}-v${local.build_version}"
   firmware             = var.vm_firmware
   CPUs                 = var.vm_cpu_sockets
   cpu_cores            = var.vm_cpu_cores

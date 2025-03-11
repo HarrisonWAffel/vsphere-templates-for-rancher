@@ -297,6 +297,12 @@ variable "common_content_library_skip_export" {
   default     = false
 }
 
+variable custom_template_prefix {
+  type = string
+  description = "A custom prefix that will be added to the template name added to the vSphere content library"
+  default = ""
+}
+
 // Removable Media Settings
 
 variable "common_iso_datastore" {
